@@ -13,10 +13,38 @@
 
     <body>
 
-    <nav class="navbar bg-success mb-3" data-bs-theme="dark">
-        <header class="container">
-            <a class="navbar-brand" href="#">Project 2 - {{ $title }}</a>
-        </header>
+    <nav class="navbar navbar-expand-md bg-success mb-3" data-bs-theme="dark">
+        <div class="container">
+            <span class="navbar-brand mb-0 h1">Project 2</span>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link" href="/">Home</a>--}}
+{{--                    </li>--}}
+
+                    @if(Auth::check())
+                        <li class="nav-item">
+                            <a class="nav-link" href="/artists">Artists</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">Log out</a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Authentication</a>
+                        </li>
+                    @endif
+
+                </ul>
+
+            </div>
+        </div>
     </nav>
 
     <main class="container">
@@ -35,6 +63,7 @@
             </div>
         </div>
     </footer>
+    <script src="/js/admin.js"></script>
     </body>
 
 
