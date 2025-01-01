@@ -29,6 +29,9 @@
 
                     @if(Auth::check())
                         <li class="nav-item">
+                            <a class="nav-link" href="/paintings">Paintings</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="/artists">Artists</a>
                         </li>
 
