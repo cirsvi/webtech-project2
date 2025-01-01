@@ -63,6 +63,18 @@ class PaintingController extends Controller implements HasMiddleware
         $painting->description = $validatedData['description'];
         $painting->year = $validatedData['year'];
         $painting->display = (bool) ($validatedData['display'] ?? false);
+
+        if ($request->hasFile('image')) {
+            $uploadedFile = $request->file('image');
+            $extension = $uploadedFile->clientExtension();
+            $name = uniqid();
+            $painting->image = $uploadedFile->storePubliclyAs(
+                '/',
+                $name . '.' . $extension,
+                'uploads'
+            );
+        }
+
         $painting->save();
 
         return redirect('/paintings');
@@ -98,6 +110,18 @@ class PaintingController extends Controller implements HasMiddleware
         $painting->description = $validatedData['description'];
         $painting->year = $validatedData['year'];
         $painting->display = (bool) ($validatedData['display'] ?? false);
+
+        if ($request->hasFile('image')) {
+            $uploadedFile = $request->file('image');
+            $extension = $uploadedFile->clientExtension();
+            $name = uniqid();
+            $painting->image = $uploadedFile->storePubliclyAs(
+                '/',
+                $name . '.' . $extension,
+                'uploads'
+            );
+        }
+
         $painting->save();
 
         // Different from the code provided in project description:
@@ -106,6 +130,10 @@ class PaintingController extends Controller implements HasMiddleware
 
     public function delete(Painting $painting): RedirectResponse
     {
+        if ($painting->image) {
+            unlink(getcwd() . '/images/' . $painting->image);
+        }
+
         $painting->delete();
         return redirect('/paintings');
     }

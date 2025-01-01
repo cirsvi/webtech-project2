@@ -10,23 +10,24 @@
 
 <form
     method="post"
-    action="{{ $painting->exists ? '/paintings/patch/' . $painting->id : '/paintings/put' }}">
+    action="{{ $painting->exists ? '/paintings/patch/' . $painting->id : '/paintings/put' }}"
+    enctype="multipart/form-data">
     @csrf
 
-    <div class="mb-3">
-        <label for="painting-title" class="form-label">Title</label>
+        <div class="mb-3">
+            <label for="painting-title" class="form-label">Title</label>
 
-        <input
-            type="text"
-            id="painting-title"
-            name="title"
-            value="{{ old('title', $painting->title) }}"
-            class="form-control @error('title') is-invalid @enderror"
-        >
+            <input
+                type="text"
+                id="painting-title"
+                name="title"
+                value="{{ old('title', $painting->title) }}"
+                class="form-control @error('title') is-invalid @enderror"
+            >
 
-        @error('title')
-            <p class="invalid-feedback">{{ $errors->first('title') }}</p>
-        @enderror
+            @error('title')
+                <p class="invalid-feedback">{{ $errors->first('title') }}</p>
+            @enderror
         </div>
 
         <div class="mb-3">
@@ -82,26 +83,51 @@
 
         </div>
 
-        // image
         <div class="mb-3">
-            <div class="form-check">
-                <input
-                    type="checkbox"
-                    id="painting-display"
-                    name="display"
-                    value="1"
-                    class="form-check-input @error('display') is-invalid @enderror"
-                    @if (old('display', $painting->display)) checked @endif
-                >
-                <label class="form-check-label" for="painting-display">
-                    Publish
-                </label>
+            <label for="painting-image" class="form-label">Image</label>
 
-                @error('display')
-                <p class="invalid-feedback">{{ $errors->first('display') }}</p>
-                @enderror
-            </div>
+            @if ($painting->image)
+                <img
+                    src="{{ asset('images/' . $painting->image) }}"
+                    class="img-fluid img-thumbnail d-block mb-2"
+                    alt="{{ $painting->title }}"
+                >
+            @endif
+
+            <input
+                type="file" accept="image/png, image/webp, image/jpeg"
+                id="painting-image"
+                name="image"
+                class="form-control @error('image') is-invalid @enderror"
+            >
+
+            @error('image')
+            <p class="invalid-feedback">{{ $errors->first('image') }}</p>
+            @enderror
+
+            {{--Additional code bit:--}} 
+            <small class="text-muted">Accepted formats: PNG, WEBP, JPEG</small>
         </div>
+
+        <div class="mb-3">
+                <div class="form-check">
+                    <input
+                        type="checkbox"
+                        id="painting-display"
+                        name="display"
+                        value="1"
+                        class="form-check-input @error('display') is-invalid @enderror"
+                        @if (old('display', $painting->display)) checked @endif
+                    >
+                    <label class="form-check-label" for="painting-display">
+                        Publish
+                    </label>
+
+                    @error('display')
+                    <p class="invalid-feedback">{{ $errors->first('display') }}</p>
+                    @enderror
+                </div>
+            </div>
 
         <button type="submit" class="btn btn-primary">
             {{ $painting->exists ? 'Update' : 'Create' }}
