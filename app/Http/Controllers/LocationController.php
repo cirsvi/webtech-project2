@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Location;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\LocationRequest;
 
 class LocationController extends Controller
 {
+    private function saveLocationData(Location $location, LocationRequest $request): void
+    {
+        $validatedData = $request->validated();
+        $location->fill($validatedData);
+        $location->save();
+    }
+
     // display all locations:
     public function list(): View
     {
@@ -35,14 +43,11 @@ class LocationController extends Controller
     }
 
     // create new location:
-    public function put(Request $request): RedirectResponse
+    public function put(LocationRequest $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+
         $location = new Location();
-        $location->name = $validatedData['name'];
-        $location->save();
+        $this->saveLocationData($location, $request);
         return redirect('/locations');
     }
 
@@ -59,13 +64,9 @@ class LocationController extends Controller
     }
 
     // update existing location data:
-    public function patch(Location $location, Request $request): RedirectResponse
+    public function patch(Location $location, LocationRequest $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        $location->name = $validatedData['name'];
-        $location->save();
+        $this->saveLocationData($location, $request);
         return redirect('/locations');
     }
 

@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Style;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\StyleRequest;
 
 class StyleController extends Controller
 {
+    private function saveStyleData(Style $style, StyleRequest $request): void
+    {
+        $validatedData = $request->validated();
+        $style->fill($validatedData);
+        $style->save();
+    }
+
     // display all styles:
     public function list(): View
     {
@@ -35,14 +43,10 @@ class StyleController extends Controller
     }
 
     // create new style:
-    public function put(Request $request): RedirectResponse
+    public function put(StyleRequest $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
         $style = new Style();
-        $style->name = $validatedData['name'];
-        $style->save();
+        $this->saveStyleData($style, $request);
         return redirect('/styles');
     }
 
@@ -59,13 +63,9 @@ class StyleController extends Controller
     }
 
     // update existing style data:
-    public function patch(Style $style, Request $request): RedirectResponse
+    public function patch(Style $style, StyleRequest $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-        $style->name = $validatedData['name'];
-        $style->save();
+        $this->saveStyleData($style, $request);
         return redirect('/styles');
     }
 
