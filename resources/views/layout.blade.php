@@ -31,8 +31,17 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/paintings">Paintings</a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="/artists">Artists</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/styles">Styles</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/locations">Locations</a>
                         </li>
 
                         <li class="nav-item">
