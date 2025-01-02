@@ -6,9 +6,18 @@ use Illuminate\Http\Request;
 use App\Models\Artist;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;;
+use App\Http\Requests\ArtistRequest;
 
 class ArtistController extends Controller
 {
+    private function saveArtistData(Artist $artist, ArtistRequest $request): void
+    {
+        $validatedData = $request->validated();
+
+        $artist->fill($validatedData);
+        $artist->save();
+    }
+
     public function list(): View
     {
         $items = Artist::orderBy('name', 'asc')->get();
@@ -34,16 +43,10 @@ class ArtistController extends Controller
     }
 
     // create new Artist
-    public function put(Request $request): RedirectResponse
+    public function put(ArtistRequest $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
-
         $artist = new Artist();
-        $artist->name = $validatedData['name'];
-        $artist->save();
-
+        $this->saveArtistData($artist, $request);
         return redirect('/artists');
     }
 
@@ -60,13 +63,8 @@ class ArtistController extends Controller
     }
 
     //update existing Artist data
-    public function patch(Artist $artist, Request $request): RedirectResponse{
-        $validatedData = $request->validate([
-           'name' => 'required|string|max:255',
-        ]);
-        $artist->name = $validatedData['name'];
-        $artist->save();
-
+    public function patch(Artist $artist, ArtistRequest $request): RedirectResponse{
+        $this->saveArtistData($artist, $request);
         return redirect('/artists');
     }
 
