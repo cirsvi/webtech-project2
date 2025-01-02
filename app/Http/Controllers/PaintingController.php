@@ -8,6 +8,7 @@ use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
+use App\Http\Requests\PaintingRequest;
 
 class PaintingController extends Controller implements HasMiddleware
 {
@@ -16,6 +17,27 @@ class PaintingController extends Controller implements HasMiddleware
         return[
             'auth',
         ];
+    }
+
+    private function savePaintingData(Painting $painting, PaintingRequest $request): void
+    {
+        $validatedData = $request->validated();
+
+        $painting->fill($validatedData);
+        $painting->display = (bool) ($validatedData['display'] ?? false);
+
+        if ($request->hasFile('image')) {
+            $uploadedFile = $request->file('image');
+            $extension = $uploadedFile->clientExtension();
+            $name = uniqid();
+            $painting->image = $uploadedFile->storePubliclyAs(
+                '/',
+                $name . '.' . $extension,
+                'uploads'
+            );
+        }
+
+        $painting->save();
     }
 
     public function list(): View
@@ -46,37 +68,10 @@ class PaintingController extends Controller implements HasMiddleware
     }
 
     // Create new Painting entry:
-    public function put(Request $request): RedirectResponse
+    public function put(PaintingRequest $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'title' => 'required|min:3|max:256',
-            'artist_id' => 'required',
-            'description' => 'nullable',
-            'year' => 'numeric',
-            'image' => 'nullable|image',
-            'display' => 'nullable',
-        ]);
-
         $painting = new Painting();
-        $painting->title = $validatedData['title'];
-        $painting->artist_id = $validatedData['artist_id'];
-        $painting->description = $validatedData['description'];
-        $painting->year = $validatedData['year'];
-        $painting->display = (bool) ($validatedData['display'] ?? false);
-
-        if ($request->hasFile('image')) {
-            $uploadedFile = $request->file('image');
-            $extension = $uploadedFile->clientExtension();
-            $name = uniqid();
-            $painting->image = $uploadedFile->storePubliclyAs(
-                '/',
-                $name . '.' . $extension,
-                'uploads'
-            );
-        }
-
-        $painting->save();
-
+        $this->savePaintingData($painting, $request);
         return redirect('/paintings');
     }
 
@@ -94,38 +89,11 @@ class PaintingController extends Controller implements HasMiddleware
         );
     }
 
-    public function patch(Painting $painting, Request $request): RedirectResponse
+    public function patch(Painting $painting, PaintingRequest $request): RedirectResponse
     {
-        $validatedData = $request->validate([
-            'title' => 'required|min:3|max:256',
-            'artist_id' => 'required',
-            'description' => 'nullable',
-            'year' => 'numeric',
-            'image' => 'nullable|image',
-            'display' => 'nullable',
-        ]);
-
-        $painting->title = $validatedData['title'];
-        $painting->artist_id = $validatedData['artist_id'];
-        $painting->description = $validatedData['description'];
-        $painting->year = $validatedData['year'];
-        $painting->display = (bool) ($validatedData['display'] ?? false);
-
-        if ($request->hasFile('image')) {
-            $uploadedFile = $request->file('image');
-            $extension = $uploadedFile->clientExtension();
-            $name = uniqid();
-            $painting->image = $uploadedFile->storePubliclyAs(
-                '/',
-                $name . '.' . $extension,
-                'uploads'
-            );
-        }
-
-        $painting->save();
-
+        $this->savePaintingData($painting, $request);
         // Different from the code provided in project description:
-        return redirect('/paintings');
+        return redirect('/paintings/update/' . $painting->id);
     }
 
     public function delete(Painting $painting): RedirectResponse

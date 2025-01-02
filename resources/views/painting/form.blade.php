@@ -105,7 +105,7 @@
             <p class="invalid-feedback">{{ $errors->first('image') }}</p>
             @enderror
 
-            {{--Additional code bit:--}} 
+            {{--Additional code bit:--}}
             <small class="text-muted">Accepted formats: PNG, WEBP, JPEG</small>
         </div>
 
