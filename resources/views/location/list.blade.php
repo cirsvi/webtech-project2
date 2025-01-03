@@ -20,8 +20,8 @@
                 <tr>
                     <td>{{ $location->id }}</td>
                     <td>{{ $location->name }}</td>
-                    <td><a href="/locations/update/{{ $location->id }}" class="btn btn-outline-primary btnsm">Edit</a>
-                        / <form action="/locations/delete/{{ $location->id }}" method="post" class="deletionform d-inline">
+                    <td><a href="/locations/update/{{ $location->id }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                        <form action="/locations/delete/{{ $location->id }}" method="post" class="d-inline deletion-form">
                             @csrf
                             <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
                         </form></td>

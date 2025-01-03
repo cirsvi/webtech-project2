@@ -30,19 +30,10 @@
                     <td>{{ $painting->year }}</td>
                     <td>{!! $painting->display ? '&#x2714;' : '&#x274C;' !!}</td>
                     <td>
-                        <a
-                            href="/paintings/update/{{ $painting->id }}"
-                            class="btn btn-outline-primary btn-sm"
-                        >Edit</a> /<form
-                            method="post"
-                            action="/paintings/delete/{{ $painting->id }}"
-                            class="d-inline deletion-form"
-                        >
+                        <a href="/paintings/update/{{ $painting->id }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                        <form method="post" action="/paintings/delete/{{ $painting->id }}" class="d-inline deletion-form">
                             @csrf
-                            <button
-                                type="submit"
-                                class="btn btn-outline-danger btn-sm"
-                            >Delete</button>
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
                         </form>
                     </td>
                 </tr>

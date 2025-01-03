@@ -21,7 +21,7 @@
                     <td>{{ $artist->id }}</td>
                     <td>{{ $artist->name }}</td>
                     <td><a href="/artists/update/{{ $artist->id }}" class="btn btn-outline-primary btn-sm">Edit</a>
-                        / <form action="/artists/delete/{{ $artist->id }}" method="post" class="deletion-form d-inline">
+                        <form action="/artists/delete/{{ $artist->id }}" method="post" class="deletion-form d-inline">
                             @csrf
                             <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
                         </form>
