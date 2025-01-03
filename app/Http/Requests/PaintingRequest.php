@@ -24,6 +24,8 @@ class PaintingRequest extends FormRequest
         return [
             'title' => 'required|min:3|max:256',
             'artist_id' => 'required',
+            'style_id' => 'required',
+            'location_id' => 'required',
             'description' => 'nullable',
             'year' => 'numeric',
             'image' => 'nullable|image',
@@ -48,6 +50,8 @@ class PaintingRequest extends FormRequest
         return [
             'name' => 'nosaukums',
             'artist_id' => 'gleznotājs/-a',
+            'style_id' => 'stils',
+            'location_id' => 'lokācija',
             'description' => 'apraksts',
             'year' => 'gads',
             'image' => 'attēls',

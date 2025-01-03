@@ -25,7 +25,7 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect('/artists');
+            return redirect('/paintings');
         }
         return back()->withErrors([
            'name' => 'Failed to authenticate',

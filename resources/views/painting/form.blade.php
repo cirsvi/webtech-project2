@@ -53,6 +53,50 @@
         </div>
 
         <div class="mb-3">
+            <label for="painting-style" class="form-label">Style</label>
+
+            <select
+                id="painting-style"
+                name="style_id"
+                class="form-select @error('style_id') is-invalid @enderror"
+            >
+                <option value="">Choose the style!</option>
+                @foreach($styles as $style)
+                    <option
+                        value="{{ $style->id }}"
+                        @if ($style->id == old('style_id', $painting->style->id ?? false)) selected @endif
+                    >{{ $style->name }}</option>
+                @endforeach
+            </select>
+
+            @error('style_id')
+            <p class="invalid-feedback">{{ $errors->first('style_id') }}</p>
+            @enderror
+        </div>
+
+        <div class="mb-3">
+            <label for="painting-location" class="form-label">Location</label>
+
+            <select
+                id="painting-location"
+                name="location_id"
+                class="form-select @error('location_id') is-invalid @enderror"
+            >
+                <option value="">Choose the location!</option>
+                @foreach($locations as $location)
+                    <option
+                        value="{{ $location->id }}"
+                        @if ($location->id == old('location_id', $painting->location->id ?? false)) selected @endif
+                    >{{ $location->name }}</option>
+                @endforeach
+            </select>
+
+            @error('location_id')
+            <p class="invalid-feedback">{{ $errors->first('location_id') }}</p>
+            @enderror
+        </div>
+
+        <div class="mb-3">
             <label for="painting-description" class="form-label">Description</label>
 
             <textarea

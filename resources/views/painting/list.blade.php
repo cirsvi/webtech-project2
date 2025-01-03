@@ -12,6 +12,8 @@
                     <th>ID</th>
                     <th>Title</th>
                     <th>Artist</th>
+                    <th>Style</th>
+                    <th>Location</th>
                     <th>Year</th>
                     <th>Displayed</th>
                     <th>&nbsp;</th>
@@ -23,6 +25,8 @@
                     <td>{{ $painting->id }}</td>
                     <td>{{ $painting->title }}</td>
                     <td>{{ $painting->artist->name }}</td>
+                    <td>{{ $painting->style->name }}</td>
+                    <td>{{ $painting->location->name }}</td>
                     <td>{{ $painting->year }}</td>
                     <td>{!! $painting->display ? '&#x2714;' : '&#x274C;' !!}</td>
                     <td>

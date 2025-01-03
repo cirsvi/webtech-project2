@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Style;
+use App\Models\Location;
 use App\Models\Artist;
 use App\Models\Painting;
 use Illuminate\View\View;
@@ -56,6 +58,8 @@ class PaintingController extends Controller implements HasMiddleware
     public function create(): View
     {
         $artists = Artist::orderBy('name', 'asc')->get();
+        $styles = Style::orderBy('name', 'asc')->get();
+        $locations = Location::orderBy('name', 'asc')->get();
 
         return view(
             'painting.form',
@@ -63,6 +67,9 @@ class PaintingController extends Controller implements HasMiddleware
                 'title' => 'Add new painting',
                 'painting' => new Painting(),
                 'artists' => $artists,
+                'styles' => $styles,
+                'locations' => $locations,
+
             ]
         );
     }
@@ -78,6 +85,8 @@ class PaintingController extends Controller implements HasMiddleware
     public function update(Painting $painting): View
     {
         $artists = Artist::orderBy('name', 'asc')->get();
+        $styles = Style::orderBy('name', 'asc')->get();
+        $locations = Location::orderBy('name', 'asc')->get();
 
         return view(
             'painting.form',
@@ -85,6 +94,8 @@ class PaintingController extends Controller implements HasMiddleware
                 'title' => 'Update painting',
                 'painting' => $painting,
                 'artists' => $artists,
+                'styles' => $styles,
+                'locations' => $locations,
             ]
         );
     }

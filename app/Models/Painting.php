@@ -12,6 +12,8 @@ class Painting extends Model
     protected $fillable =[
       'title',
       'artist_id',
+      'style_id',
+      'location_id',
       'description',
       'year',
     ];
@@ -19,5 +21,15 @@ class Painting extends Model
     public function artist(): BelongsTo
     {
         return $this->belongsTo(Artist::class);
+    }
+
+    public function style(): BelongsTo
+    {
+        return $this->belongsTo(Style::class);
+    }
+
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(Location::class);
     }
 }
