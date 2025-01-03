@@ -7,6 +7,7 @@ use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\StyleController;
+use App\Http\Controllers\DataController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -46,3 +47,8 @@ Route::post('/styles/put', [StyleController::class, 'put']);
 Route::get('/styles/update/{style}', [StyleController::class, 'update']);
 Route::post('/styles/patch/{style}', [StyleController::class, 'patch']);
 Route::post('/styles/delete/{style}', [StyleController::class, 'delete']);
+
+// Data/API
+Route::get('/data/get-top-paintings', [DataController::class, 'getTopPaintings']);
+Route::get('/data/get-painting/{painting}', [DataController::class, 'getPainting']);
+Route::get('/data/get-related-paintings/{painting}', [DataController::class, 'getRelatedPaintings']);

@@ -103,7 +103,6 @@ class PaintingController extends Controller implements HasMiddleware
     public function patch(Painting $painting, PaintingRequest $request): RedirectResponse
     {
         $this->savePaintingData($painting, $request);
-        // Different from the code provided in project description:
         return redirect('/paintings/update/' . $painting->id);
     }
 
