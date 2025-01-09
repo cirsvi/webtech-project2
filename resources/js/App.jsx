@@ -1,31 +1,34 @@
-const topPaintings = [
-    { "id":5,"artist_id":3,"style_id":1,"location_id":1,"title":"Woman with a Parasol - Madame Monet and Her Son","year":1875,"description":"Monet's light, spontaneous brushwork creates splashes of colour. Mrs Monet's veil is blown by the wind, as is her billowing white dress; the waving grass of the meadow is echoed by the green underside of her parasol. She is seen as if from below, with a strong upward perspective, against fluffy white clouds in an azure sky. A boy, Monet's seven-year-old son Jean, is placed further away, concealed behind a rise in the ground and visible only from the waist up, creating a sense of depth, the moment using animated brush strokes full of vibrant color.","image":"6776580cdebeb.jpg","display":1,"created_at":"2025-01-02T09:10:37.000000Z","updated_at":"2025-01-03T11:59:57.000000Z"},
-    { "id":8,"artist_id":4,"style_id":3,"location_id":4,"title":"Judith and her Maidservant","year":1615,"description":"The painting depicts the moments after the biblical heroine Judith has assassinated the general Holofernes, and is fleeing his tent with her servant Abra.\r\n\r\nThe dark setting of the scene is brightened by the red and gold tones in the fabrics - colors which Gentileschi used frequently during her time in Florence. The use of deep colors and rich textures is characteristic of the Baroque period to which her work belongs.\r\n\r\nHer use of diagonal lines guides the viewer from the faces of the women to the head of Holofernes in the basket. She also uses intense contrast between dark and light to create three-dimensional volume.\r\n\r\nThe viewer is reminded of the violence which preceded this moment by the screaming head depicted on the pommel of the sword, thought to be a mythological figure such as Medusa. The presence of fresh blood dripping from the basket the maidservant is carrying, which shows Holofernes's head in full view, also invokes the violence of the scene the two figures are leaving. The intense depiction of gore is also characteristic of Baroque painting, which, unlike previous artistic movements, did not shy away from bloody depictions of biblical scenes.","image":"6778e98bad415.jpg","display":1,"created_at":"2025-01-04T07:55:55.000000Z","updated_at":"2025-01-04T07:55:55.000000Z" },
-    { "id":7,"artist_id":4,"style_id":3,"location_id":4,"title":"Judith Slaying Holofernes","year":1620,"description":"Gentileschi centers her work on the labor of the killing, which forces the gaze to start amid the tangle of blood, limbs, and metal. Her ability to display brutal realism is shown particularly in the details, such as the arc of carotid blood that spatters across the frame. This scene displays the use of chiaroscuro, or the drastic contrast between light and dark, both literally and figuratively.\r\n\r\nHolofernes struggles in vain to press against Abra as the two women force him down with distinctly strong arms.[4] Their sleeves are rolled up, as though they are performing an unavoidable domestic chore, and their faces express a staunch resolve. Judith drives the sword, which is noticeably vertical and shaped in a way that alludes to a cross, into flesh with an exertive force. Abra is depicted as almost a mirror to Judith, with a youthful appearance that departs from earlier portrayals of her character. She holds firm to the left arm of their victim as he pushes against her breast in desperation. Holofernes, whose blood puddles and spurts a deep red to contrast the white sheets of his deathbed, is overpowered and without hope.","image":"6778e87766043.jpg","display":1,"created_at":"2025-01-04T07:51:19.000000Z","updated_at":"2025-01-04T07:51:19.000000Z" }
-];
+import { useEffect, useState } from "react";
+import '../css/loader.css';
 
-const selectedPainting = {
-    "id":7,
-    "artist_id":4,
-    "style_id":3,
-    "location_id":4,
-    "title":"Judith Slaying Holofernes",
-    "year":1620,
-    "description":"Gentileschi centers her work on the labor of the killing, which forces the gaze to start amid the tangle of blood, limbs, and metal. Her ability to display brutal realism is shown particularly in the details, such as the arc of carotid blood that spatters across the frame. This scene displays the use of chiaroscuro, or the drastic contrast between light and dark, both literally and figuratively.\r\n\r\nHolofernes struggles in vain to press against Abra as the two women force him down with distinctly strong arms.[4] Their sleeves are rolled up, as though they are performing an unavoidable domestic chore, and their faces express a staunch resolve. Judith drives the sword, which is noticeably vertical and shaped in a way that alludes to a cross, into flesh with an exertive force. Abra is depicted as almost a mirror to Judith, with a youthful appearance that departs from earlier portrayals of her character. She holds firm to the left arm of their victim as he pushes against her breast in desperation. Holofernes, whose blood puddles and spurts a deep red to contrast the white sheets of his deathbed, is overpowered and without hope.","image":"6778e87766043.jpg","display":1,"created_at":"2025-01-04T07:51:19.000000Z","updated_at":"2025-01-04T07:51:19.000000Z"
-};
-
-const relatedPaintingss = [
-    { "id":5,"artist_id":3,"style_id":1,"location_id":1,"title":"Woman with a Parasol - Madame Monet and Her Son","year":1875,"description":"Monet's light, spontaneous brushwork creates splashes of colour. Mrs Monet's veil is blown by the wind, as is her billowing white dress; the waving grass of the meadow is echoed by the green underside of her parasol. She is seen as if from below, with a strong upward perspective, against fluffy white clouds in an azure sky. A boy, Monet's seven-year-old son Jean, is placed further away, concealed behind a rise in the ground and visible only from the waist up, creating a sense of depth, the moment using animated brush strokes full of vibrant color.","image":"6776580cdebeb.jpg","display":1,"created_at":"2025-01-02T09:10:37.000000Z","updated_at":"2025-01-03T11:59:57.000000Z" },
-    { "id":8,"artist_id":4,"style_id":3,"location_id":4,"title":"Judith and her Maidservant","year":1615,"description":"The painting depicts the moments after the biblical heroine Judith has assassinated the general Holofernes, and is fleeing his tent with her servant Abra.\r\n\r\nThe dark setting of the scene is brightened by the red and gold tones in the fabrics - colors which Gentileschi used frequently during her time in Florence. The use of deep colors and rich textures is characteristic of the Baroque period to which her work belongs.\r\n\r\nHer use of diagonal lines guides the viewer from the faces of the women to the head of Holofernes in the basket. She also uses intense contrast between dark and light to create three-dimensional volume.\r\n\r\nThe viewer is reminded of the violence which preceded this moment by the screaming head depicted on the pommel of the sword, thought to be a mythological figure such as Medusa. The presence of fresh blood dripping from the basket the maidservant is carrying, which shows Holofernes's head in full view, also invokes the violence of the scene the two figures are leaving. The intense depiction of gore is also characteristic of Baroque painting, which, unlike previous artistic movements, did not shy away from bloody depictions of biblical scenes.","image":"6778e98bad415.jpg","display":1,"created_at":"2025-01-04T07:55:55.000000Z","updated_at":"2025-01-04T07:55:55.000000Z" },
-    {"id":6,"artist_id":2,"style_id":2,"location_id":3,"title":"The Starry Night","year":1889,"description":"The Starry Night is an oil-on-canvas painting by the Dutch Post-Impressionist painter Vincent van Gogh, painted in June 1889. It depicts the view from the east-facing window of his asylum room at Saint-R\u00e9my-de-Provence, just before sunrise, with the addition of an imaginary village. It has been in the permanent collection of the Museum of Modern Art in New York City since 1941, acquired through the Lillie P. Bliss Bequest. Widely regarded as Van Gogh's magnum opus, The Starry Night is one of the most recognizable paintings in Western art.","image":"6776d0f12c97e.jpg","display":1,"created_at":"2025-01-02T17:46:25.000000Z","updated_at":"2025-01-02T17:46:25.000000Z"}
-];
-      
+// Main application component
 export default function App(){
+    const [selectedPaintingID,setSelectedPaintingID] = useState(null);
+
+    // function to store Painting ID in state
+    function handlePaintingSelection(paintingID) {
+        setSelectedPaintingID(paintingID);
+    }
+
+    // function to clear Painting ID from state
+    function handleGoingBack() {
+        setSelectedPaintingID(null);
+    }
+    
+
     return (
         <>
             <Header />
             <main className="mb-8 px-2 md:container md:mx-auto">
-                <h1>Hello, World!</h1>
+                {
+                selectedPaintingID
+                ? <PaintingPage
+                    selectedPaintingID={selectedPaintingID}
+                    handlePaintingSelection={handlePaintingSelection} 
+                    handleGoingBack={handleGoingBack}
+                 />
+                : <Homepage handlePaintingSelection={handlePaintingSelection} />
+                }
             </main>
             <Footer />
         </>
@@ -50,8 +53,301 @@ function Footer(){
     return(
         <footer className="bg-neutral-300 mt-8">
             <div className="py-8 md:container md:mx-auto px-2">
-                V. Cirša, Vea, 2005
+                V. Cirša
+                Vea, 2005
             </div>
         </footer>
+    )
+}
+
+
+// Homepage - loads data from API and displays top paintings
+function Homepage({ handlePaintingSelection }) {
+    const [topPaintings, setTopPaintings] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(function () {
+        async function fetchTopPaintings() {
+    
+            try {
+                setIsLoading(true);
+                setError(null);
+                const response = await fetch('http://localhost/data/get-top-paintings');
+                
+                if(!response.ok){
+                    throw new Error("Error while loading data. Please reload page!");
+                }
+
+                const data = await response.json();
+                console.log('top paintings fetched', data);
+                setTopPaintings(data);
+                } catch (error) {
+                    setError(error.message);
+                } finally {
+                    setIsLoading(false);
+                }
+        }
+        fetchTopPaintings();
+    }, []);
+
+    return (
+        <>
+            {isLoading && <Loader />}
+            {error && <ErrorMessage msg={error}/>}
+            {!isLoading && !error && (
+                topPaintings.map((painting, index) => (
+                    <TopPaintingView 
+                        painting={painting}
+                        key={painting.id}
+                        index={index}
+                        handlePaintingSelection={handlePaintingSelection} 
+                     />
+                ))
+            )}
+        </>
+    )
+}
+
+// Painting page component- structural component that contains parts of the painting page
+function PaintingPage({ selectedPaintingID, handlePaintingSelection, handleGoingBack }) {
+    return (
+        <>
+            <SelectedPaintingView
+                selectedPaintingID={selectedPaintingID}
+                handleGoingBack={handleGoingBack}
+            />
+            <RelatedPaintingSection
+                selectedPaintingID={selectedPaintingID}
+                handlePaintingSelection={handlePaintingSelection}
+            />
+        </>
+    )
+}
+
+// Top Painting View - displays paintings on Homepage
+function TopPaintingView({ painting, index, handlePaintingSelection }) {
+    return (
+        <div className="bg-neutral-100 rounded-lg mb-8 py-8 flex flex-wrap md:flex-row">
+            <div className=
+                {`order-2 px-12 md:basis-1/2
+                     ${ index % 2 === 1 ? "md:order-1 md:text-right" : ""}
+                `}
+            >
+                <p className="mb-4 text-3xl leading-8 font-light text-neutral-900">
+                    {painting.title}
+                </p>
+                <p className="mb-4 text-xl leading-7 font-light text-neutral-900 mb-4">
+                    { (painting.description.split(' ').slice(0, 16).join(' ')) + '...' }
+                </p>
+                <SeeMoreBtn
+                    paintingID={painting.id}
+                    handlePaintingSelection={handlePaintingSelection}
+                />
+            </div>
+            <div className=
+                {`order-1 md:basis-1/2 ${ index % 2 === 1 ? "md:order-2" : ""}`}
+            >
+                <img
+                    src={ painting.image }
+                    alt={ painting.title }
+                    className="p-1 rounded-md border border-neutral-200 w-2/4 aspect-automx-auto" />
+            </div>
+        </div>
+    )
+}
+
+// Selected Painting View - displays selected painting details
+function SelectedPaintingView({ selectedPaintingID, handleGoingBack }) {
+    const [selectedPainting, setSelectedPainting] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(function (){
+        async function fetchSelectedPainting() {
+
+            try {
+                setIsLoading(true);
+                setError(null);
+                const response = await fetch('http://localhost/data/get-painting/' + selectedPaintingID);
+
+                if(!response.ok) {
+                    throw new Error("Error while loading data. Please reload page!");
+                }
+
+                const data = await response.json();
+                console.log('painting ' + selectedPaintingID + ' fetched', data);
+                setSelectedPainting(data);
+            } catch(error) {
+                setError(error.message);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        fetchSelectedPainting();
+    }, [selectedPaintingID]);
+
+
+    return (
+        <>
+            {isLoading && <Loader />}
+            {error && <ErrorMessage msg={error} />}
+            {!isLoading && !error && <>
+
+         <div className="rounded-lg flex flex-wrap md:flex-row">
+            <div className="order-2 md:order-1 md:pt-12 md:basis-1/2">
+                <h1 className="text-3xl leading-8 font-light text-neutral-900 mb-2">
+                    {selectedPainting.title}
+                </h1>
+                <p className="text-xl leading-7 font-light text-neutral-900 mb-2">
+                    {selectedPainting.artist}
+                </p>
+                <p className="text-xl leading-7 font-light text-neutral-900 mb-4">
+                    {selectedPainting.description}
+                </p>
+                <dl className="mb-4 md:flex md:flex-wrap md:flex-row">
+                    <dd className="mb-2 md:basis-3/4">
+                        {selectedPainting.year}
+                    </dd>
+                    <dt className="font-bold md:basis-1/4">
+                        Style
+                    </dt>
+                    <dd className="mb-2 md:basis-3/4">
+                        {selectedPainting.style}
+                    </dd>
+                    <dt className="font-bold md:basis-1/4">
+                        Location
+                    </dt>
+                    <dd className="mb-2 md:basis-3/4">
+                        {selectedPainting.location}
+                    </dd>
+                </dl>
+            </div>
+        <div className="order-1 md:order-2 md:pt-12 md:px-12 md:basis-1/2">
+            <img
+                src={selectedPainting.image}
+                alt={selectedPainting.title}
+                className="p-1 rounded-md border border-neutral-200 mx-auto" />
+        </div>
+    </div>
+    <div className="mb-12 flex flex-wrap">
+        <GoBackBtn handleGoingBack={handleGoingBack} />
+    </div>
+    </>}
+    </>
+    )
+}
+
+// Related Painting Section
+function RelatedPaintingSection({ selectedPaintingID, handlePaintingSelection }) {
+    const [relatedPainting, setRelatedPainting] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+    useEffect(function (){
+        async function fetchRelatedPainting() {
+            try{
+                setIsLoading(true);
+                setError(null);
+                const response = await fetch('http://localhost/data/get-related-paintings/' + selectedPaintingID);
+                
+                if (!response.ok) {
+                    throw new Error("Error while loading related paintings. Please reload the page!");
+                }
+
+                const data = await response.json();
+                console.log('related painting ' + selectedPaintingID + ' fetched', data);
+                setRelatedPainting(data);  
+            } catch (error){
+                setError(error.message);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        fetchRelatedPainting();        
+    }, [selectedPaintingID]);
+
+
+    return (
+        <>
+            {isLoading && <Loader />}
+             {error && <ErrorMessage msg={error} />}
+            {!isLoading && !error && <>
+                <div className="flex flex-wrap">
+                    <h2 className="text-3xl leading-8 font-light text-neutral-900 mb4">
+                        Similar Paintings
+                    </h2>
+                </div>
+                <div className="flex flex-wrap md:flex-row md:space-x-4 md:flexnowrap">
+                    {relatedPainting.map( painting => (
+                        <RelatedPaintingView
+                            painting={painting}
+                            key={painting.id}
+                            handlePaintingSelection={handlePaintingSelection}
+                        />
+                    ))}
+            </div>
+            </>}
+        </>
+    )
+}
+
+// Related Painting View
+function RelatedPaintingView({ painting, handlePaintingSelection }) {
+    return (
+        <div className="rounded-lg mb-4 md:basis-1/3">
+            <img
+                src={ painting.image }
+                alt={ painting.title }
+                className="md:h-[400px] md:mx-auto max-md:w-2/4 max-md:mx-auto" />
+            <div className="p-4">
+                <h3 className="text-xl leading-7 font-light text-neutral-900 mb4">
+                    { painting.title }
+                </h3>
+                <SeeMoreBtn
+                    paintingID={painting.id}
+                    handlePaintingSelection={handlePaintingSelection}
+                />
+            </div>
+         </div>
+    )
+}
+
+// See More Button
+function SeeMoreBtn({ paintingID, handlePaintingSelection }) {
+    return (
+        <button
+            className="inline-block rounded-full py-2 px-4 bg-sky-500 hover:bgsky-400 text-sky-50 cursor-pointer"
+            onClick={() => handlePaintingSelection(paintingID)}
+        >
+            See more
+        </button>
+    )
+}
+
+// Go Back Button
+function GoBackBtn({ handleGoingBack }){
+    return (
+        <button className="inline-block rounded-full py-2 px-4 bg-neutral-500 hover:bg-neutral-400 text-neutral-50 cursor-pointer"
+            onClick={handleGoingBack}>
+            Back
+        </button>
+    )    
+}
+    
+// Loader and Error Message components
+function Loader() {
+    return (
+        <div className="my-12 px-2 md:container md:mx-auto text-center clear-both">
+            <div className="loader"></div> 
+        </div>
+    )
+}
+
+function ErrorMessage({ msg }) {
+    return (
+        <div className="md:container md:mx-auto bg-red-300 my-8 p-2">
+            <p className="text-black">{ msg }</p>
+        </div>
     )
 }
