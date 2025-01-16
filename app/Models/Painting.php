@@ -32,4 +32,18 @@ class Painting extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => intval($this->id),
+            'title' => $this->title,
+            'description' => $this->description,
+            'artist' => $this->artist->name,
+            'style' => ($this->style ? $this->style->name : ''),
+            'location' => ($this->location ? $this->location->name : ''),
+            'year' => intval($this->year),
+            'image' => asset('images/' . $this->image),
+        ];
+    }
 }

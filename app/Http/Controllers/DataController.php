@@ -12,34 +12,23 @@ class DataController extends Controller
     {
         $paintings = Painting::where('display', true)
             ->inRandomOrder()
-            ->take(3)
-            ->get()
-            ->map(function ($painting) {
-            $painting->image = asset('images/' . $painting->image);
-            return $painting;
-            });
+            ->take(5)
+            ->get();
+
         return response()->json($paintings);
     }
 
     public function getPainting(Painting $painting): JsonResponse
     {
+        logger()->info('Fetching painting:', ['id' => $painting->id]);
+
         $selectedPainting = Painting::where([
             'id' => $painting->id,
             'display' => true,
         ])
-            ->firstOrFail();
+        ->firstOrFail();
 
-        $paintingData = [
-            'title' => $selectedPainting->title,
-            'artist' => $selectedPainting->artist->name,
-            'style' => $selectedPainting->style->name,
-            'location' => $selectedPainting->location->name,
-            'year' => $selectedPainting->year,
-            'description' => $selectedPainting->description,
-            'image' => asset('images/' . $selectedPainting->image),
-        ];
-
-        return response()->json($paintingData);
+        return response()->json($selectedPainting);
     }
 
     public function getRelatedPaintings(Painting $painting): JsonResponse
@@ -48,11 +37,8 @@ class DataController extends Controller
             ->where('id', '<>', $painting->id)
             ->inRandomOrder()
             ->take(3)
-            ->get()
-            ->map(function ($painting) {
-                $painting->image = asset('images/' . $painting->image);
-                return $painting;
-            });
+            ->get();
+
         return response()->json($paintings);
     }
 }

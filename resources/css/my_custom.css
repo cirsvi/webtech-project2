@@ -1,0 +1,100 @@
+:root{
+    --background-neutral-dark-gray: #1E1E1E;
+    --background-header-footer-color: #161616;
+    --button-neutral-gray: #898989;
+    --button-neutral-gray-hover:#A0A0A0;
+    --main-page-border:#181818;
+    --button-color:#a6771e;
+    --button-hover-color:#d19b35;
+    --translucent-black:rgba(0, 0, 0, 0.5);
+    --font-default: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, 
+    Helvetica, Arial, sans-serif, "Apple Color Emoji", 
+    "Segoe UI Emoji", "Segoe UI Symbol";
+    --font-main: "Libre Baskerville", serif; 
+}
+
+.custom-bg-dark-gray{
+    background-color: var(--background-neutral-dark-gray);
+}
+.custom-button-color{
+    background-color: var(--button-color);
+}
+
+.custom-main-font{
+    font-family: var(--font-main);
+}
+
+.custom-border{
+    border: 1px solid var(--main-page-border)
+}
+
+.custom-header {
+    padding: 2rem 0.5rem;
+    overflow: hidden;
+}
+
+.header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: top center;
+    filter: blur(6px) opacity(50%);
+}
+
+.custom-header-border {
+    border-bottom: 1px solid var(--background-header-footer-color)
+}
+
+.custom-footer{
+    position: relative;
+    padding: 2rem 0.5rem;
+    background-color:var(--background-header-footer-color);
+}
+
+.custom-goback-button{
+    background-color: var(--button-neutral-gray);
+}
+
+
+.custom-background-container-homepage{
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    filter: blur(5px) brightness(75%) opacity(35%);
+}
+
+.custom-background-container-selected-painting{
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(6px) brightness(90%);
+}
+
+.custom-hover-scale {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+
+
+@media screen and (min-width: 992px){   
+    .custom-button-color:hover{
+        background-color: var(--button-hover-color);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .custom-goback-button:hover{
+        background-color:var(--button-neutral-gray-hover);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .custom-hover-scale:hover {
+        transform: scale(1.03);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    }
+}

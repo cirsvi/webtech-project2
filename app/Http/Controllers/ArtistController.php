@@ -65,6 +65,7 @@ class ArtistController extends Controller
     //update existing Artist data
     public function patch(Artist $artist, ArtistRequest $request): RedirectResponse{
         $this->saveArtistData($artist, $request);
+
         return redirect('/artists');
     }
 
